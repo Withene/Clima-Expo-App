@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Box, Flex, Spacer, HStack, ListItem, VStack, Button, IconButton, ActivityIndicator } from "@react-native-material/core";
+import { Box, Flex, Spacer, HStack, ListItem, VStack, Button, IconButton, ActivityIndicator, Snackbar, Text } from "@react-native-material/core";
 import * as Location from 'expo-location';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Title, Timer, Label } from "./styled";
@@ -15,7 +15,7 @@ import { Ions } from "../../utils/icons";
 function Home() {
     const { HandleGetLat } = userFind();
     const [loading, setLoading] = useState(true);
-
+    const [errorMsg, setErrorMsg] = useState(null);
     const [Datalocation, setDatalocation] = useState(null);
     const [Url, setUrl] = useState(null);
     const [FiveDays, setFiveDays] = useState(null);
@@ -37,7 +37,7 @@ function Home() {
         
                 data.days = data.days.slice(2, 7)
                 setFiveDays(data.days)
-    
+                setErrorMsg(null)
                 setLoading(false)
             }else{
                 setDatalocation({})
@@ -51,32 +51,48 @@ function Home() {
     }, []);
 
     const reload = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        
+        if (status === 'granted') {
+            setLoading(true)
         let data = await HandleGetLat()
-        setDatalocation(data.currentConditions)
 
+        setDatalocation(data.currentConditions)
+        setUrl(Ions[data.currentConditions.icon].uri)
         data.days = data.days.slice(2, 7)
         setFiveDays(data.days)
 
         setLoading(false)
+        setErrorMsg(null)
+        }else{
+
+           return setErrorMsg(<Snackbar
+            message="A Permissão de localização é necessária"
+            style={{ position: "absolute", start: 16, end: 16, bottom: 16 }}
+          />)
+        }
+        
     }
 
     if (loading) {
-        return <ActivityIndicator size="large" />
+        return   <Flex fill center={true}>
+        <ActivityIndicator size={70}  color="#f8f8f8" />
+        <Text variant="button"  style={{marginTop:20, color: "#f8f8f8"}}>Carregando..</Text>
+      </Flex>
     }
 
-
+   
  
-
     return (
         <Flex fill>
             <Box h={40} pr={20} style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-                <IconButton icon={props => <Icon name="magnify" color={'white'} size={34} onPress={reload}/>} />
+                <IconButton icon={props => <Icon name="crosshairs-gps" color={'white'} size={34} onPress={reload}/>} />
             </Box>
             <Box fill style={{ justifyContent: 'center' }}>
                 <Flex justifyContent="center" alignItems="center" >
                 
-                    <Timer>{Datalocation.City.city ? Datalocation.City.city : '-----'}</Timer>
-                    <Title size={'15px'}>{Datalocation.City.region ? Datalocation.City.region : 'Clique na Lupa para atualizar'}</Title>
+                    <Timer>{Datalocation.City ? Datalocation.City.city : '-----'}</Timer>
+                    <Title size={'15px'}>{Datalocation.City ? Datalocation.City.region : 'Clique no Gps'}</Title>
 
                 </Flex>
             </Box>
@@ -85,9 +101,9 @@ function Home() {
                 <Flex justifyContent="center" alignItems="center" >
                     <Box mb={20}>
 
-                        <Image source={Url ? Url : ''} style={{ width: 74, height: 74 }} />
+                        <Image source={Url ? Url : Ions.cloudy.uri} style={{ width: 74, height: 74 }} />
                     </Box>
-                    <Title size={'15px'}>{Datalocation.conditions ? Datalocation.conditions : 'Clique na Lupa para atualizar'}</Title>
+                    <Title size={'15px'}>{Datalocation.conditions ? Datalocation.conditions.charAt(0).toUpperCase() + Datalocation.conditions.slice(1) : 'Clique no Gps'}</Title>
 
                     <Box mt={20} style={{ justifyContent: 'center' }}>
                         <Timer>{
@@ -227,9 +243,9 @@ function Home() {
             </Flex>
 
 
+             {errorMsg ? errorMsg : errorMsg}
 
-
-        </Flex>
+        </Flex> 
 
     )
 
