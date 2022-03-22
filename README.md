@@ -4,6 +4,7 @@
 * Exibição de clima atual, e previsão para 5 dias.
 * Rastramento da cidade (Somente para previsão).
 * Chance de chuva no local, Sensação termica, ou velocidade do vento.
+* Aplicativo feito para estudos!
 
 
 ## Layout
