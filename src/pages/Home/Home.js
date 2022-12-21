@@ -187,7 +187,6 @@ function Home() {
                         {
                             FiveDays.map((e, index) => {
                                 e.datetime = new Date(e.datetime)
-                                console.log(e.datetime.getDay())
                                 let day = 'Segunda'
                                 switch(e.datetime.getDay()){
                                     case 1:
