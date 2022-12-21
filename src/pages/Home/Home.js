@@ -189,25 +189,25 @@ function Home() {
                                 e.datetime = new Date(e.datetime)
                                 let day = 'Segunda'
                                 switch(e.datetime.getDay()){
-                                    case 1:
+                                    case 0:
                                          day = 'Domingo'
                                     break;
-                                    case 2:
+                                    case 1:
                                          day = 'Segunda'
                                     break;
-                                    case 3:
+                                    case 2:
                                         day = 'Terça'
                                     break;
-                                    case 4:
+                                    case 3:
                                         day = 'Quarta'
                                     break;
-                                    case 5:
+                                    case 4:
                                         day = 'Quinta'
                                     break;
-                                    case 6:
+                                    case 5:
                                         day = 'Sexta'
                                     break;
-                                    case 0:
+                                    case 6:
                                         day = 'Sábado'
                                     break;
                                 }
