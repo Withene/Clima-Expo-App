@@ -24,17 +24,17 @@ function Home() {
 
 
     useEffect(() => {
-      
-     
+
+
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
-        
+
             if (status === 'granted') {
                 let data = await HandleGetLat()
                 setDatalocation(data.currentConditions)
-                
+
                   setUrl(Ions[data.currentConditions.icon].uri)
-        
+
                 data.days = data.days.slice(2, 7)
                 setFiveDays(data.days)
                 setErrorMsg(null)
@@ -42,17 +42,17 @@ function Home() {
             }else{
                 setDatalocation({})
                 setFiveDays([])
-    
+
                 setLoading(false)
             }
         })();
-      
-   
+
+
     }, []);
 
     const reload = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
-        
+
         if (status === 'granted') {
             setLoading(true)
         let data = await HandleGetLat()
@@ -71,7 +71,7 @@ function Home() {
             style={{ position: "absolute", start: 16, end: 16, bottom: 16 }}
           />)
         }
-        
+
     }
 
     if (loading) {
@@ -81,8 +81,8 @@ function Home() {
       </Flex>
     }
 
-   
- 
+
+
     return (
         <Flex fill>
             <Box h={40} pr={20} style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -90,7 +90,7 @@ function Home() {
             </Box>
             <Box fill style={{ justifyContent: 'center' }}>
                 <Flex justifyContent="center" alignItems="center" >
-                
+
                     <Timer>{Datalocation.City ? Datalocation.City.city : '-----'}</Timer>
                     <Title size={'15px'}>{Datalocation.City ? Datalocation.City.region : 'Clique no Gps'}</Title>
 
@@ -187,37 +187,37 @@ function Home() {
                         {
                             FiveDays.map((e, index) => {
                                 e.datetime = new Date(e.datetime)
-                              
+                                console.log(e.datetime.getDay())
                                 let day = 'Segunda'
                                 switch(e.datetime.getDay()){
-                                    case 0:
+                                    case 1:
                                          day = 'Domingo'
                                     break;
-                                    case 1:
+                                    case 2:
                                          day = 'Segunda'
                                     break;
-                                    case 2:
+                                    case 3:
                                         day = 'Terça'
                                     break;
-                                    case 3:
+                                    case 4:
                                         day = 'Quarta'
                                     break;
-                                    case 4:
+                                    case 5:
                                         day = 'Quinta'
                                     break;
-                                    case 5:
+                                    case 6:
                                         day = 'Sexta'
                                     break;
-                                    case 6:
+                                    case 0:
                                         day = 'Sábado'
                                     break;
                                 }
-                               
+
                                 return (<Flex alignItems="center" key={index}>
                                     <Title weigth={400} size={'12px'}>{day}</Title>
                                     <Box w={65} h={72} m={4} style={{ justifyContent: 'center', borderWidth: 2, borderColor: "white", borderRadius: 10, }} >
                                         <Flex justify="center" alignItems="center">
-                                  
+
                                             <Image source={Ions[e.icon].uri ? Ions[e.icon].uri : ''} style={{ width: 24, height: 24 }} />
                                             <Title weigth={400} size={'12px'}>
                                                 {
@@ -245,7 +245,7 @@ function Home() {
 
              {errorMsg ? errorMsg : errorMsg}
 
-        </Flex> 
+        </Flex>
 
     )
 

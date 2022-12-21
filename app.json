@@ -4,9 +4,9 @@
     "slug": "clima",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/cloudy.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/cloudy.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,13 +21,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/cloudy.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "clima.apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c225ce06-b667-4761-9bce-12f5047e1e73"
+      }
     }
   }
 }
