@@ -1,26 +1,40 @@
 import { StatusBar } from "expo-status-bar";
-
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold
+} from '@expo-google-fonts/poppins';
 import Home from "./src/pages/Home/Home";
 import { Box } from "@react-native-material/core";
 import { ImageBackground } from "react-native";
 import { ThemeProvider } from "styled-components";
 
 export default function App() {
+
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold
+  });
+
+  if (!fontsLoaded) {
+    return null; // ou qualquer outra lógica de carregamento
+  }
+
   const tema = {
     colors: {
       primaryColor: "#fff",
       contrastColor: "black",
+
+      main: "#0B0C1E",
+      contrastMain: "#1B1D2E"
     },
+    fontFamily: "Poppins_400Regular",
   };
 
-  const greetingMessage = () => {
-    // let h = new Date() // formato 24 horas (0-23)
-    // if (h.getHours() <= 18) {
-    //     return require('./assets/bg.jpg');
-    // } else {
-    //     return  require('./assets/bs.jpg');
-    // }
-  };
 
   return (
     <ThemeProvider theme={tema}>

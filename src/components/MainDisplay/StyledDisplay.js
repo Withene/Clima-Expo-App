@@ -3,7 +3,12 @@ import styled from "styled-components/native";
 
 export const MainContainer = styled(Box)`
   //background: blue;
+  //background: rgba(31, 32, 68, 0.94);
+
+  //border: 1px solid rgba(255, 255, 255, 0.2);
   width: 90%;
-  border-radius: 10px;
-  height: 100px;
+  border-radius: 20px;
+  height: 120px;
+
+
 `;

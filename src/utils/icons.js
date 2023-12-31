@@ -1,6 +1,6 @@
 export const Ions = {
   cloudy: {
-    uri: require("./../../assets/Icons/cloudy.png"),
+    uri: require("../../assets/Icons/cloudy.png"),
   },
   "partly-cloudy-day": {
     uri: require("./../../assets/Icons/partly-cloudy-day.png"),

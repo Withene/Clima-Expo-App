@@ -10,76 +10,35 @@ import {
   IconButton,
   ActivityIndicator,
   Snackbar,
-  Text,
+  Text
 } from "@react-native-material/core";
-import * as Location from "expo-location";
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { Title, Timer, Label } from "./styled";
-import { Image } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
 
-import userFind from "../../Hooks/GetTimer";
-import { Ions } from "../../utils/icons";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import {Title, Timer, Label, BoxOfDays} from "./styled";
+import {Dimensions, Image, Touchable, TouchableHighlight, TouchableOpacity, View} from "react-native";
+
 import DefaultDisplay from "../../components/MainDisplay/MainDisplay";
+import GraphComponent from "../../components/Graph/Graph";
+
+import {useTheme} from "styled-components";
+import {TextInput} from "react-native-paper";
+
+
+
+
 
 function Home() {
-  const { HandleGetLat } = userFind();
-  const [loading, setLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [Datalocation, setDatalocation] = useState(null);
   const [Url, setUrl] = useState(null);
-  const [FiveDays, setFiveDays] = useState(null);
+  const theme = useTheme();
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("a");
-        let data = await HandleGetLat();
-        setDatalocation(data.currentConditions);
-        setUrl(Ions[data.currentConditions.icon].uri);
 
-        data.days = data.days.slice(2, 7);
-        setFiveDays(data.days);
-        setErrorMsg(null);
-        setLoading(false);
-      } else {
-        setDatalocation({});
-        setFiveDays([]);
-
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  const reload = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-
-    console.log(status);
-    if (status !== "granted") {
-      setLoading(true);
-      let data = await HandleGetLat();
-
-      setDatalocation(data.currentConditions);
-      setUrl(Ions[data.currentConditions.icon].uri);
-      data.days = data.days.slice(2, 7);
-      setFiveDays(data.days);
-
-      setLoading(false);
-      setErrorMsg(null);
-    } else {
-      return setErrorMsg(
-        <Snackbar
-          message="A Permissão de localização é necessária"
-          style={{ position: "absolute", start: 16, end: 16, bottom: 16 }}
-        />,
-      );
-    }
-  };
 
   if (loading) {
     return (
       <Flex fill center={true}>
+
         <ActivityIndicator size={70} color="#f8f8f8" />
         <Text variant="button" style={{ marginTop: 20, color: "#f8f8f8" }}>
           Carregando..
@@ -89,7 +48,10 @@ function Home() {
   }
 
   return (
+
     <Flex fill>
+    <TouchableHighlight>
+      <>
       <Box
         h={40}
         pr={20}
@@ -100,164 +62,58 @@ function Home() {
               name="crosshairs-gps"
               color={"white"}
               size={34}
-              onPress={reload}
             />
           )}
         />
+
       </Box>
-      <Box fill style={{ justifyContent: "center" }}>
-        <Flex justifyContent="center" alignItems="center">
-          <Timer>{Datalocation.City ? Datalocation.City.city : "-----"}</Timer>
-          <Title size={"15px"}>
-            {Datalocation.City ? Datalocation.City.region : "Clique no Gps"}
-          </Title>
+      <Box fill style={{ justifyContent: "center", marginBottom:20 }}>
+        <Flex justifyContent="center" alignItems="center" mt={40}>
+            <TextInput
+            placeholder={'Search your city'}
+            mode={'outlined'}
+            textColor={'white'}
+            style={{backgroundColor:theme.colors.main,width:'89%',color:'white', borderRadius:30}}
+            outlineStyle={{borderRadius:20}}
+            left={<TextInput.Icon icon={() => <Icon name={'magnify'} size={24} color={'white'} />} size={30} />}
+            />
+
         </Flex>
       </Box>
 
       <DefaultDisplay Url={Url} Datalocation={Datalocation} />
 
-      <Box fill>
-        <Box mt={35}>
-          <VStack m={4} spacing={10}>
-            <HStack
-              m={4}
-              style={{ justifyContent: "space-around" }}
-              spacing={6}>
-              <Box w={120}>
-                <Flex justify="center" alignItems="center">
-                  <Label>Senc. Térmica</Label>
-                  <Box h={4} />
-                  <Title>
-                    {Datalocation.feelslike
-                      ? ((5 / 9) * (Datalocation.feelslike - 32)).toFixed(0) +
-                        "ºC"
-                      : "0 ºC"}
-                  </Title>
-                </Flex>
-              </Box>
+      {/*<Box fill mt={'40%'}>*/}
+      {/*  <HStack justify={"around"}>*/}
+      {/*  <BoxOfDays selected={true}>*/}
+      {/*          <Title size={"15px"} align={"center"}>Seg</Title>*/}
+      {/*  </BoxOfDays>*/}
 
-              <Box w={120}>
-                <Flex justify="center" alignItems="center">
-                  <Label>Umidade</Label>
-                  <Box h={4} />
-                  <Title>
-                    {Datalocation.humidity
-                      ? Datalocation.humidity + " %"
-                      : 0 + " %"}
-                  </Title>
-                </Flex>
-              </Box>
-            </HStack>
+      {/*    <BoxOfDays>*/}
+      {/*      <Title size={"15px"}  align={"center"}>Ter</Title>*/}
+      {/*    </BoxOfDays>*/}
 
-            <HStack
-              m={4}
-              style={{ justifyContent: "space-around" }}
-              spacing={6}>
-              <Box w={120}>
-                <Flex justify="center" alignItems="center">
-                  <Label>Vel. Vento</Label>
-                  <Box h={4} />
-                  <Title>
-                    {Datalocation.windspeed
-                      ? Datalocation.windspeed + " km/h"
-                      : 0 + " km/h"}
-                  </Title>
-                </Flex>
-              </Box>
+      {/*    <BoxOfDays>*/}
+      {/*      <Title size={"15px"}  align={"center"}>Qua</Title>*/}
+      {/*    </BoxOfDays>*/}
 
-              <Box w={120}>
-                <Flex justify="center" alignItems="center">
-                  <Label>Chuva</Label>
-                  <Box h={4} />
-                  <Title>
-                    {Datalocation.precip ? Datalocation.precip + "mm" : "0mm"} -{" "}
-                    {Datalocation.precipprob === null
-                      ? 0 + "%"
-                      : Datalocation.precipprob
-                        ? Datalocation.precipprob + "%"
-                        : "0 %"}
-                  </Title>
-                </Flex>
-              </Box>
-            </HStack>
-          </VStack>
-        </Box>
-      </Box>
+      {/*    <BoxOfDays>*/}
+      {/*      <Title size={"15px"}  align={"center"}>Qui</Title>*/}
+      {/*    </BoxOfDays>*/}
 
-      <Flex fill justify="end" mb={60} m={10}>
-        <Box m={10}>
-          <Title weigth={700} size={"15px"}>
-            Previsão Para 5 Dias
-          </Title>
+      {/*    <BoxOfDays>*/}
+      {/*      <Title size={"15px"}  align={"center"}>Sex</Title>*/}
+      {/*    </BoxOfDays>*/}
 
-          {/* PRINCIPAL */}
-          <HStack
-            mt={10}
-            style={{ justifyContent: "space-around" }}
-            spacing={6}>
-            {FiveDays.map((e, index) => {
-              e.datetime = new Date(e.datetime);
-              let day = "Segunda";
-              switch (e.datetime.getDay()) {
-                case 0:
-                  day = "Domingo";
-                  break;
-                case 1:
-                  day = "Segunda";
-                  break;
-                case 2:
-                  day = "Terça";
-                  break;
-                case 3:
-                  day = "Quarta";
-                  break;
-                case 4:
-                  day = "Quinta";
-                  break;
-                case 5:
-                  day = "Sexta";
-                  break;
-                case 6:
-                  day = "Sábado";
-                  break;
-              }
+      {/*  </HStack>*/}
+      {/*</Box>*/}
 
-              return (
-                <Flex alignItems="center" key={index}>
-                  <Title weigth={400} size={"12px"}>
-                    {day}
-                  </Title>
-                  <Box
-                    w={65}
-                    h={72}
-                    m={4}
-                    style={{
-                      justifyContent: "center",
-                      borderWidth: 2,
-                      borderColor: "white",
-                      borderRadius: 10,
-                    }}>
-                    <Flex justify="center" alignItems="center">
-                      <Image
-                        source={Ions[e.icon].uri ? Ions[e.icon].uri : ""}
-                        style={{ width: 24, height: 24 }}
-                      />
-                      <Title weigth={400} size={"12px"}>
-                        {e.tempmax
-                          ? ((5 / 9) * (e.tempmax - 32)).toFixed(0) + "ºC"
-                          : "--"}
-                      </Title>
-                    </Flex>
-                  </Box>
-                </Flex>
-              );
-            })}
-          </HStack>
-        </Box>
-      </Flex>
-
-      {errorMsg ? errorMsg : errorMsg}
+      {/*Grafico*/}
+      <GraphComponent />
+      </>
+    </TouchableHighlight>
     </Flex>
+
   );
 }
 
