@@ -1,27 +1,26 @@
 import styled from "styled-components/native";
-import {Box} from "@react-native-material/core";
+import { Box } from "@react-native-material/core";
 
 const greetingMessage = props => {
-  let h = new Date(); // formato 24 horas (0-23)
+  const h = new Date(); // formato 24 horas (0-23)
   return props.theme.colors.primaryColor;
 };
 
 export const Title = styled.Text`
   color: ${props => greetingMessage(props)};
-  font-family: 'Poppins_400Regular';
+  font-family: ${props => (props.font ? props.font : "Poppins_400Regular")};
   font-size: ${props => (props.size ? props.size : "16px")};
   text-align: ${props => (props.align ? props.align : "left")};
-  font-weight: ${props => (props.weigth ? props.weigth : "normal")};
+  font-weight: ${props => (props.weight ? props.weight : "normal")};
 `;
 
 export const Timer = styled.Text`
   color: ${props => greetingMessage(props)};
-  font-family: 'Poppins_700Bold';
+  font-family: "Poppins_700Bold";
   height: 48px;
   font-size: ${props => (props.size ? props.size : "50px")};
   text-align: right;
   margin-left: 20px;
-
 `;
 
 export const Label = styled.Text`
@@ -30,15 +29,14 @@ export const Label = styled.Text`
   font-weight: 700;
 `;
 
-
 export const BoxOfDays = styled(Box)`
   color: white;
-
-  width: 60px;
-  background: ${(props) => {
-    if(props.selected){
-      return '#6B5DD3';
-    }else{
+  width: 100px;
+  height: 100px;
+  background: ${props => {
+    if (props.selected) {
+      return props.theme.colors.contrastMain;
+    } else {
       return "transparent";
     }
   }};

@@ -65,7 +65,13 @@ export const Ions = {
   wind: {
     uri: require("./../../assets/Icons/wind.png"),
   },
-  test:{
-    uri: require("./../../assets/Icons/116.png")
-  }
+  humidity: {
+    uri: require("../../assets/Icons/humidity.png"),
+  },
+  rainChance: {
+    uri: require("../../assets/Icons/rain-chance.png"),
+  },
+  test: {
+    uri: require("./../../assets/Icons/116.png"),
+  },
 };

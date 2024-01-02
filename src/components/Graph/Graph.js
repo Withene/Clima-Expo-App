@@ -1,9 +1,10 @@
-import { Box, Flex, HStack } from "@react-native-material/core";
+import { Box, Flex, HStack, VStack } from "@react-native-material/core";
 import { LineChart } from "react-native-gifted-charts";
 import React from "react";
 import { Dimensions, View } from "react-native";
 import { BoxOfDays, Title } from "../../pages/Home/styled";
 import { useTheme } from "styled-components";
+import { Poppins_300Light } from "@expo-google-fonts/poppins";
 
 const customLabel = val => {
   return (
@@ -62,10 +63,15 @@ const GraphComponent = () => {
 
   return (
     <Box>
-      <Box mt={"10%"} pl={"3%"}>
-        <Title size={"20px"} align={"left"}>
-          Last Five Days
-        </Title>
+      <Box mt={"5%"} pl={"5%"}>
+        <VStack>
+          <Title size={"20px"} align={"left"}>
+            Temperature in ºC
+          </Title>
+          <Title size={"15px"} align={"left"} font={"Poppins_300Light"}>
+            Last Five Days
+          </Title>
+        </VStack>
       </Box>
 
       <Flex

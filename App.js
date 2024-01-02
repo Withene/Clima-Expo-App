@@ -4,20 +4,22 @@ import {
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_600SemiBold,
-  Poppins_700Bold
-} from '@expo-google-fonts/poppins';
+  Poppins_700Bold,
+  Poppins_200ExtraLight,
+  Poppins_300Light,
+} from "@expo-google-fonts/poppins";
 import Home from "./src/pages/Home/Home";
 import { Box } from "@react-native-material/core";
 import { ImageBackground } from "react-native";
 import { ThemeProvider } from "styled-components";
 
 export default function App() {
-
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
+    Poppins_300Light,
     Poppins_600SemiBold,
-    Poppins_700Bold
+    Poppins_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -30,11 +32,10 @@ export default function App() {
       contrastColor: "black",
 
       main: "#0B0C1E",
-      contrastMain: "#1B1D2E"
+      contrastMain: "#1B1D2E",
     },
     fontFamily: "Poppins_400Regular",
   };
-
 
   return (
     <ThemeProvider theme={tema}>
