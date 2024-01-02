@@ -16,14 +16,15 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import { Image, TouchableHighlight } from "react-native";
 
-import DefaultDisplay from "../../components/MainDisplay/MainDisplay";
+import DefaultDisplay from "../../components/MainDisplayComponent/MainDisplayComponent";
 import GraphComponent from "../../components/Graph/Graph";
 
 import { useTheme } from "styled-components";
 import { MD3Colors, TextInput, ProgressBar } from "react-native-paper";
 import { BoxOfDays, BoxOfWithColor, Title } from "./styled";
 import { Ions } from "../../utils/icons";
-import { MainContainer } from "../../components/MainDisplay/StyledDisplay";
+import { MainContainer } from "../../components/MainDisplayComponent/StyledDisplay";
+import CubeComponent from "../../components/CubeComponent/CubeComponent";
 
 function Home() {
   const [loading, setLoading] = useState(false);
@@ -96,78 +97,7 @@ function Home() {
 
           <DefaultDisplay Url={Url} Datalocation={Datalocation} />
 
-          <Box fill mt={"8%"} mb={"8%"}>
-            <HStack justify={"evenly"}>
-              <BoxOfDays selected={true}>
-                <Flex fill alignItems={"center"} mt={"5%"}>
-                  <Image
-                    source={Url ? Url : Ions.humidity.uri}
-                    style={{ width: 32, height: 32 }}
-                  />
-                  <Box mt={"3%"}>
-                    <Title
-                      size={"17px"}
-                      align={"center"}
-                      font={"Poppins_600SemiBold"}>
-                      20%
-                    </Title>
-                    <Title
-                      size={"12px"}
-                      align={"center"}
-                      style={{ marginTop: "10px" }}>
-                      Humidity
-                    </Title>
-                  </Box>
-                </Flex>
-              </BoxOfDays>
-
-              <BoxOfDays selected>
-                <Flex fill alignItems={"center"} mt={"5%"}>
-                  <Image
-                    source={Url ? Url : Ions.rainChance.uri}
-                    style={{ width: 32, height: 32 }}
-                  />
-                  <Box mt={"3%"}>
-                    <Title
-                      size={"17px"}
-                      align={"center"}
-                      font={"Poppins_600SemiBold"}>
-                      90%
-                    </Title>
-                    <Title
-                      size={"12px"}
-                      align={"center"}
-                      style={{ marginTop: "10px" }}>
-                      Prob. of rain
-                    </Title>
-                  </Box>
-                </Flex>
-              </BoxOfDays>
-
-              <BoxOfDays selected>
-                <Flex fill alignItems={"center"} mt={"5%"}>
-                  <Image
-                    source={Url ? Url : Ions.wind.uri}
-                    style={{ width: 32, height: 32 }}
-                  />
-                  <Box mt={"3%"}>
-                    <Title
-                      size={"17px"}
-                      align={"center"}
-                      font={"Poppins_600SemiBold"}>
-                      7 km/h
-                    </Title>
-                    <Title
-                      size={"12px"}
-                      align={"center"}
-                      style={{ marginTop: "10px" }}>
-                      Wind
-                    </Title>
-                  </Box>
-                </Flex>
-              </BoxOfDays>
-            </HStack>
-          </Box>
+          <CubeComponent />
 
           <Box w={"100%"}>
             <Box pl={"5%"} mb={"1%"}>

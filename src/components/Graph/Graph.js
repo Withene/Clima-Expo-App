@@ -63,7 +63,7 @@ const GraphComponent = () => {
 
   return (
     <Box>
-      <Box mt={"5%"} pl={"5%"}>
+      <Box mt={"2%"} pl={"5%"}>
         <VStack>
           <Title size={"20px"} align={"left"}>
             Temperature in ºC
