@@ -1,63 +1,67 @@
 import { Box, Flex, HStack, VStack } from "@react-native-material/core";
 import { LineChart } from "react-native-gifted-charts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, View } from "react-native";
 import { BoxOfDays, Title } from "../../pages/Home/styled";
 import { useTheme } from "styled-components";
-import { Poppins_300Light } from "@expo-google-fonts/poppins";
-
-const customLabel = val => {
-  return (
-    <View style={{ width: 50, height: 20 }}>
-      <Title
-        style={{
-          color: "white",
-          fontWeight: "bold",
-          fontSize: 13,
-          marginLeft: 20,
-        }}>
-        {val}
-      </Title>
-    </View>
-  );
-};
+import { useSelector } from "react-redux";
 
 const GraphComponent = () => {
   const theme = useTheme();
-  const data = [
-    { value: 26, hideDataPoint: true },
+  const dataInit = [
+    { value: 0, hideDataPoint: true },
     {
-      value: 10,
-      dataPointText: "26ºC",
-      labelComponent: () => customLabel("Seg"),
+      value: 0,
+      dataPointText: "0",
+      // labelComponent: () => customLabel("Seg"),
+      label: "Seg",
       dataPointRadius: 5,
+      labelTextStyle: { color: "#fff" },
     },
     {
-      value: 24,
-      dataPointText: "24ºC",
-      labelComponent: () => customLabel("Ter"),
+      value: 0,
+      dataPointText: "0",
+      // labelComponent: () => customLabel("Ter"),
+      label: "ter",
       dataPointRadius: 5,
+      labelTextStyle: { color: "#fff" },
     },
     {
-      value: 27,
-      dataPointText: "27ºC",
-      labelComponent: () => customLabel("Qua"),
+      value: 0,
+      dataPointText: "0",
+      // labelComponent: () => customLabel("Qua"),
+      label: "Qua",
       dataPointRadius: 5,
+      labelTextStyle: { color: "#fff" },
     },
     {
-      value: 17,
-      dataPointText: "28ºC",
-      labelComponent: () => customLabel("Qui"),
+      value: 0,
+      dataPointText: "0",
+      // labelComponent: () => customLabel("Qui"),
+      label: "Qua",
       dataPointRadius: 5,
+      labelTextStyle: { color: "#fff" },
     },
     {
-      value: 26,
-      dataPointText: "26ºC",
-      labelComponent: () => customLabel("Sex"),
+      value: 0,
+      dataPointText: "0",
+      // labelComponent: () => customLabel("Sex"),
       dataPointRadius: 5,
+      label: "Qua",
+      labelTextStyle: { color: "#fff" },
     },
-    { value: 26, hideDataPoint: true },
+    { value: 0, hideDataPoint: true },
   ];
+
+  const [data, setData] = useState(dataInit);
+
+  const days = useSelector(state => state.days);
+
+  useEffect(() => {
+    if (days.length) {
+      setData(days);
+    }
+  }, [days]);
 
   const screenWidth = Dimensions.get("window").width;
 
@@ -69,7 +73,7 @@ const GraphComponent = () => {
             Temperature in ºC
           </Title>
           <Title size={"15px"} align={"left"} font={"Poppins_300Light"}>
-            Last Five Days
+            Next Five Days
           </Title>
         </VStack>
       </Box>
@@ -84,7 +88,8 @@ const GraphComponent = () => {
           <LineChart
             areaChart
             isAnimated
-            // noOfSectionsBelowXAxis={10}
+            animateOnDataChange={true}
+            onDataChangeAnimationDuration={30000}
             animationDuration={2000}
             startFillColor={theme.colors.contrastMain}
             endFillColor={theme.colors.main}
@@ -95,6 +100,7 @@ const GraphComponent = () => {
             curved
             thickness={3}
             hideRules
+            color={"#fff"}
             hideYAxisText
             verticalLinesColor="rgba(14,164,164,0.5)"
             xAxisColor="transparent"

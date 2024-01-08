@@ -3,12 +3,16 @@ import { BoxOfDays, Title } from "../../pages/Home/styled";
 import { Image } from "react-native";
 import { Ions } from "../../utils/icons";
 import React from "react";
+import { Surface } from "react-native-paper";
+import { useSelector } from "react-redux";
 
 const CubeComponent = () => {
+  const currentConditions = useSelector(state => state.currentConditions);
+
   return (
     <Box fill mt={"8%"} mb={"5%"}>
       <HStack justify={"evenly"}>
-        <BoxOfDays selected={true}>
+        <BoxOfDays selected>
           <Flex fill alignItems={"center"} mt={"5%"}>
             <Image
               source={Ions.humidity.uri}
@@ -19,7 +23,7 @@ const CubeComponent = () => {
                 size={"17px"}
                 align={"center"}
                 font={"Poppins_600SemiBold"}>
-                20%
+                {currentConditions.humidity}%
               </Title>
               <Title
                 size={"12px"}
@@ -42,7 +46,7 @@ const CubeComponent = () => {
                 size={"17px"}
                 align={"center"}
                 font={"Poppins_600SemiBold"}>
-                90%
+                {currentConditions.precipprob}%
               </Title>
               <Title
                 size={"12px"}
@@ -62,7 +66,7 @@ const CubeComponent = () => {
                 size={"17px"}
                 align={"center"}
                 font={"Poppins_600SemiBold"}>
-                7 km/h
+                {currentConditions.windspeed} km/h
               </Title>
               <Title
                 size={"12px"}

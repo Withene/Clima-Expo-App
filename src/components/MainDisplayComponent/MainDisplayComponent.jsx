@@ -13,9 +13,12 @@ import React from "react";
 import { MainContainer } from "./StyledDisplay";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useTheme } from "styled-components";
+import { useSelector } from "react-redux";
 
-const DefaultDisplay = ({ Url, Datalocation }) => {
+const DefaultDisplay = ({ Url }) => {
   const theme = useTheme();
+  const name = useSelector(state => state.city);
+  const currentConditions = useSelector(state => state.currentConditions);
 
   return (
     <Box>
@@ -40,16 +43,19 @@ const DefaultDisplay = ({ Url, Datalocation }) => {
 
             <VStack alignItems="flex-start" ml={10} h={60}>
               <Box w={"90%"}>
-                <Timer size={"40px"}>29 ºC</Timer>
+                <Timer size={"40px"}>
+                  {currentConditions.temp
+                    ? (((currentConditions.temp - 32) * 5) / 9).toFixed(0)
+                    : "0"}{" "}
+                  ºC
+                </Timer>
               </Box>
-              <HStack alignItems="center" mr={30} spacing={2}>
+              <Flex w={160} h={40} justify={"evenly"} direction={"row"} mt={5}>
                 <Icon name={"map-marker"} size={20} color={"white"} />
-                <Flex w={110} h={40} justify={"center"} mt={5}>
-                  <Title size={"15px"} numberOfLines={2}>
-                    Ceilândia - DF
-                  </Title>
-                </Flex>
-              </HStack>
+                <Title size={"15px"} numberOfLines={2}>
+                  {name}
+                </Title>
+              </Flex>
             </VStack>
           </HStack>
           {/* <Box pl={15} pt={8}>*/}
