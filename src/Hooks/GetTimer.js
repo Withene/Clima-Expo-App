@@ -8,20 +8,16 @@ import {
   setSelect,
   setSunProgress,
 } from "../store";
-import { View } from "react-native";
-import { Title } from "../pages/Home/styled";
-import data from "../return.json";
-import React, { useState } from "react";
+import { EXPO_PUBLIC_API_KEY } from "@env";
 import searchCity from "./GetCity";
 import * as Location from "expo-location";
+import { useTheme } from "styled-components";
 
 export default function mainService() {
-  const [location, setLocation] = useState(null);
-
   const dispatch = useDispatch();
-
+  const theme = useTheme();
   const handleGetInf = async (lat, long) => {
-    const key = "WN2SKRP6929NF5QSEDUEVA4W2";
+    const key = EXPO_PUBLIC_API_KEY;
     const baseUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${long}?key=${key}&lang=pt`;
 
     const temp = await axios.get(`${baseUrl}`);
@@ -37,19 +33,19 @@ export default function mainService() {
     const graphData = [];
 
     graphData.push({ value: 10, hideDataPoint: true });
-    for await (element of temp.data.days.slice(0, 5)) {
+    for await (const element of temp.data.days.slice(0, 5)) {
       graphData.push({
         value: (((element.temp - 32) * 5) / 9).toFixed(0) - 5,
         dataPointText: (((element.temp - 32) * 5) / 9).toFixed(0) + "ºC",
         dataPointRadius: 5,
         label: getDayOfWeekAbbreviation(element.datetime),
-        labelTextStyle: { color: "#fff" },
+        labelTextStyle: { color: theme.colors.primaryColor },
       });
     }
     graphData.push({ value: 10, hideDataPoint: true });
 
     dispatch(setDays(graphData));
-    dispatch(setCurrentConditions(temp.data.currentConditions));
+    dispatch(setCurrentConditions(temp.data.days[0]));
   };
 
   const getDayOfWeekAbbreviation = dateString => {
@@ -73,15 +69,18 @@ export default function mainService() {
 
   const handleGetByAndroid = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
+    if (status != "granted") {
       return false;
     }
 
     const location = await Location.getCurrentPositionAsync({});
 
     if (location) {
-      handleGetInf(location.coords.latitude, location.coords.longitude);
-      handleGetNameOfCity(location.coords.latitude, location.coords.longitude);
+      await handleGetInf(location.coords.latitude, location.coords.longitude);
+      await handleGetNameOfCity(
+        location.coords.latitude,
+        location.coords.longitude,
+      );
       dispatch(setSelect(false));
     }
 

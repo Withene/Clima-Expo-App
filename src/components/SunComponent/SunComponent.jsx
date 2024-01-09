@@ -13,7 +13,6 @@ const SunComponent = () => {
     tempoFinal,
     tempoAtual,
   ) {
-    // Converter o tempo para minutos
     function converterParaMinutos(tempo) {
       const [horas, minutos] = tempo.split(":").map(Number);
       return horas * 60 + minutos;
@@ -23,11 +22,9 @@ const SunComponent = () => {
     const minutosFinal = converterParaMinutos(tempoFinal);
     const minutosAtual = converterParaMinutos(tempoAtual);
 
-    // Calcular a porcentagem de tempo passado como uma fração entre 0 e 1
     const porcentagemPassada =
       (minutosAtual - minutosInicial) / (minutosFinal - minutosInicial);
 
-    // Limitar a porcentagem entre 0 e 1
     const porcentagemFinal = Math.min(1, Math.max(0, porcentagemPassada));
 
     return porcentagemFinal.toFixed(2);

@@ -3,7 +3,6 @@ import { BoxOfDays, Title } from "../../pages/Home/styled";
 import { Image } from "react-native";
 import { Ions } from "../../utils/icons";
 import React from "react";
-import { Surface } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 const CubeComponent = () => {

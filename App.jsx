@@ -37,8 +37,9 @@ export default function App() {
   const tema = {
     colors: {
       primaryColor: "#fff",
-      contrastColor: "black",
+      contrastColor: "white",
       main: "#0B0C1E",
+      backgroundColor: "#0B0C1E",
       contrastMain: "#1B1D2E",
     },
     fontFamily: "Poppins_400Regular",

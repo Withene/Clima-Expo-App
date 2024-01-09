@@ -1,8 +1,8 @@
-import { Box, Flex, HStack, VStack } from "@react-native-material/core";
+import { Box, Flex, VStack } from "@react-native-material/core";
 import { LineChart } from "react-native-gifted-charts";
 import React, { useEffect, useState } from "react";
-import { Dimensions, View } from "react-native";
-import { BoxOfDays, Title } from "../../pages/Home/styled";
+import { Dimensions } from "react-native";
+import { Title } from "../../pages/Home/styled";
 import { useTheme } from "styled-components";
 import { useSelector } from "react-redux";
 

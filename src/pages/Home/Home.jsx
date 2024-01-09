@@ -65,20 +65,15 @@ function Home({ route }) {
   return (
     <>
       <Flex fill>
-        <Box h={"100%"} style={{ backgroundColor: "#0B0C1E" }}>
+        <Box
+          h={"100%"}
+          style={{ backgroundColor: theme.colors.backgroundColor }}>
           <TouchableHighlight>
             <>
               <Box
-                h={40}
-                pr={20}
-                style={{ justifyContent: "center", alignItems: "flex-end" }}>
-                <IconButton
-                  icon={props => (
-                    <Icon name="theme-light-dark" color={"white"} size={28} />
-                  )}
-                />
-              </Box>
-              <Box fill style={{ justifyContent: "center", marginBottom: 20 }}>
+                fill
+                style={{ justifyContent: "center", marginBottom: 20 }}
+                mt={30}>
                 <Flex justifyContent="center" alignItems="center" mt={40}>
                   <TextInput
                     placeholder={"Search your city"}
@@ -142,7 +137,6 @@ function Home({ route }) {
               </Box>
             </>
           </TouchableHighlight>
-
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
               name="Home"

@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {clearInput, basicInfo, setSelect} from "../../store";
 import mainService from "../../Hooks/GetTimer";
 import searchCity from "../../Hooks/GetCity";
+import {useTheme} from "styled-components";
 
 
 
@@ -14,10 +15,10 @@ const SearchPage = ({ route, teste }) => {
   const { data } = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+    const theme = useTheme();
   const service = mainService();
   return (
-    <Box h={"100%"} style={{ backgroundColor: "#0B0C1E" }}>
+    <Box h={"100%"} style={{ backgroundColor: theme.colors.backgroundColor }}>
         <Box w={"100%"} p={"5%"}>
       <FlatList
         data={data}

@@ -1,12 +1,5 @@
-import { Image, View } from "react-native";
-import {
-  Box,
-  Flex,
-  HStack,
-  Spacer,
-  Text,
-  VStack,
-} from "@react-native-material/core";
+import { Image } from "react-native";
+import { Box, Flex, HStack, VStack } from "@react-native-material/core";
 import { Ions } from "../../utils/icons";
 import { Timer, Title } from "../../pages/Home/styled";
 import React from "react";
