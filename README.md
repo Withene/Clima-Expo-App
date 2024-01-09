@@ -1,19 +1,11 @@
 #  Weather App (React Native)
 
-<div style='display:flex; justify-content: space-around; text-align:center'>
-<div >
 
-##### Home Page
-<img src="https://github.com/Withene/Clima-Expo-App/assets/82597491/5c6004f8-2e11-4e89-b71a-f8c67423ae62" width="250"/>
-</div>
 
-<div>
+Home Page             |  Search Page
+:-------------------------:|:-------------------------:
+![](https://github.com/Withene/Clima-Expo-App/assets/82597491/5c6004f8-2e11-4e89-b71a-f8c67423ae62)  |  ![](https://github.com/Withene/Clima-Expo-App/assets/82597491/70d72c76-bd35-45db-b7a2-94763b728776)
 
-##### Search Page
-<img src="https://github.com/Withene/Clima-Expo-App/assets/82597491/70d72c76-bd35-45db-b7a2-94763b728776" width="250"/>
-</div>
-
-</div>
 
 
 ## Descrição
